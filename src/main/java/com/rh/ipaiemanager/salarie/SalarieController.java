@@ -33,7 +33,7 @@ public class SalarieController {
 	 * @return
 	 */
 	@GetMapping(path = {"/{id}"})
-    public Optional<Salarie> getSalarie(@PathVariable("id") long id){
-        return salarieService.findById(id);
+    public Salarie getSalarie(@PathVariable("id") long id){
+        return salarieService.getSalarieById(id);
     }
 }

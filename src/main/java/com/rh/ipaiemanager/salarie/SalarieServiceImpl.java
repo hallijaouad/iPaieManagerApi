@@ -1,17 +1,19 @@
 package com.rh.ipaiemanager.salarie;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.rh.ipaiemanager.salarie.SalarieRepository;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class SalarieServiceImpl implements SalarieService {
 
-   
+	@Autowired
     private SalarieRepository salarieRepository;
     
     public SalarieServiceImpl(SalarieRepository salarieRepository){
@@ -19,12 +21,18 @@ public class SalarieServiceImpl implements SalarieService {
     }
     
 
-   
+   /**
+    * Find all ressources salariés
+    */
     @Override
     public List<Salarie> findAll() {
     	List<Salarie> salaries = this.salarieRepository.findAll();   
         return salaries;
     }
+    
+    /**
+     * Filtre les salriés par nom
+     */
     
     @Override
     public List<Salarie> findByNom(String nom) {
@@ -36,14 +44,21 @@ public class SalarieServiceImpl implements SalarieService {
         return salaries;
     }
     
+    /**
+     * Get données d'un salariés
+     */
     @Override
-    public Optional<Salarie> findById(long id) {
-        return this.salarieRepository.findById(id);
+    public Salarie getSalarieById(long id) {
+    	return this.salarieRepository.findOne(id);
     }
     
+    
+    /**
+     * Supprimer le salariés by identificateur
+     */
     @Override
-    public Optional<Salarie> delete(long id) {
-    	Optional<Salarie> salarie = this.salarieRepository.findById(id);
+    public Salarie delete(long id) {
+    	Salarie salarie = getSalarieById(id);
         if(salarie != null){
         	this.salarieRepository.delete(salarie);
         }
