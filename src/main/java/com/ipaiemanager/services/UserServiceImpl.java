@@ -1,4 +1,4 @@
-package com.ischool.services;
+package com.ipaiemanager.services;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.ischool.models.User;
-import com.ischool.dao.UserRepository;
+import com.ipaiemanager.models.User;
+import com.ipaiemanager.dao.UserRepository;
 import javax.transaction.Transactional;
 
 @Service

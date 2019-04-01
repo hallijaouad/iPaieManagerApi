@@ -1,11 +1,11 @@
-package com.ischool.controllers;
+package com.ipaiemanager.controllers;
 import java.util.List;
 
 
 import javax.validation.Valid;
 
-import com.ischool.models.User;
-import com.ischool.services.UserService;
+import com.ipaiemanager.models.User;
+import com.ipaiemanager.services.UserService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

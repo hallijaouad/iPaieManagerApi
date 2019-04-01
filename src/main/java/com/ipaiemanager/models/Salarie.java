@@ -1,4 +1,4 @@
-package com.rh.ipaiemanager.salarie;
+package com.ipaiemanager.models;
 
 import java.io.Serializable;
 import javax.persistence.*;

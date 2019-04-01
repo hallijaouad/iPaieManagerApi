@@ -1,4 +1,4 @@
-package com.ischool;
+package com.ipaiemanager;
 
 import java.util.Arrays;
 

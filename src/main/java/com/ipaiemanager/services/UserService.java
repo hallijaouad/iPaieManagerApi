@@ -1,8 +1,8 @@
-package com.ischool.services;
+package com.ipaiemanager.services;
 import java.util.List;
 
 
-import com.ischool.models.User;
+import com.ipaiemanager.models.User;
 
 public interface UserService {
 	List<User> findAll();
