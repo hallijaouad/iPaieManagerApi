@@ -17,13 +17,22 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of= {"nom","prenom"})
-@ToString(of= {"nom","prenom"})
+@EqualsAndHashCode(of= {"nom","prenom","email"})
+@ToString(of= {"nom","prenom","email"})
 
 public class Salarie implements Serializable{	
 	private static final long serialVersionUID = 1L;	
 	@Id		
-	private Long id;		
-	private String nom;		
-	private String prenom;  	
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;	
+	
+	@Column(name = "nom")
+	private String nom;	
+	
+	@Column(name = "prenom")
+	private String prenom;  
+	
+	@Column(name = "email")
+	private String email; 
 }

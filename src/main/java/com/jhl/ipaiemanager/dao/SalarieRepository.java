@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.jhl.ipaiemanager.models.Salarie;
 
 @Repository
-public interface SalarieRepository extends JpaRepository<Salarie, Long>{
-	List<Salarie> findByNom(String nom);
+public interface SalarieRepository extends JpaRepository<Salarie, Long>{	
+	List<Salarie> findByNomLike(String nom);
 	Salarie findSalarieById(Long id);
 }

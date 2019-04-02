@@ -1,0 +1,258 @@
+{
+	"info": {
+		"_postman_id": "697093e6-a4da-4efc-8af3-88aa890a62d3",
+		"name": "ipaiemanagerapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"nom\":\"haaa\",\n\"prenom\":\"test\",\n\"email\":\"test@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL28yc2JhY2tlbmRcL3B1YmxpY1wvaW5kZXgucGhwXC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNTM3ODIyMTE1LCJleHAiOjE1Mzc4MjU3MTUsIm5iZiI6MTUzNzgyMjExNSwianRpIjoiZjdWOXlKWnJHYkp3UjZrUiIsInN1YiI6NzgyNzcsInBydiI6IjYxZmNmN2FhYmE0NjI4ZjY4NjQ3YTM0MDA5NWEyYmIxOGU2ZWQxOWUifQ.5qcecEu9uZgA3OFRTbFvITc5CHdaONVoEhn5_UijDHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"nom\":\"haaa\",\n\"prenom\":\"hom\",\n\"email\":\"test@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add salarie",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"nom\":\"haaa\",\n\"prenom\":\"test\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/salaries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"salaries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get salaries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/salaries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"salaries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filtre salarie  by nom like",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/salaries/filtre/halli",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"salaries",
+						"filtre",
+						"halli"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get salarie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/salaries/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"salaries",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete  salarie by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/salaries/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"salaries",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

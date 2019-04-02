@@ -28,6 +28,15 @@ public class SalarieServiceImpl implements SalarieService {
     }  
     
     /**
+     * Filtrer les salariés par nom
+     */
+     @Override
+     public List<Salarie> findByNomLike(String nom) {
+     	List<Salarie> salaries = this.salarieRepository.findByNomLike(nom);   
+         return salaries;
+     }  
+    
+    /**
      * Get on salarie by id
      */
     @Override
@@ -35,10 +44,35 @@ public class SalarieServiceImpl implements SalarieService {
         return this.salarieRepository.findSalarieById(id);
     }
     
+    /**
+     * Création d'un nouveau salarié
+     */
     @Override
     @Transactional
     public Salarie create(Salarie salarie) { 
         return this.salarieRepository.save(salarie);
+    }
+    
+    /**
+     * Update salarié
+     */
+    @Override
+    @Transactional
+    public Salarie update(Salarie salarie) { 
+        return this.salarieRepository.save(salarie);
+    }
+    
+    /**
+     * Supression d'un salarié
+     */
+    @Override
+    public Salarie delete(Long id){
+    	Salarie salarie = findSalarie(id);
+    	// si salarié est existe
+    	if(salarie.getId() > 0){
+    		this.salarieRepository.delete(salarie);
+    	}
+    	return salarie;
     }
     
 

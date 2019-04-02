@@ -2,16 +2,20 @@ package com.jhl.ipaiemanager.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jhl.ipaiemanager.models.Salarie;
+
 import com.jhl.ipaiemanager.services.SalarieService;
 
 
@@ -28,10 +32,18 @@ public class SalarieRestController {
 	 * Get all salaries
 	 * @return
 	 */
-	@GetMapping("")
+	@GetMapping ("")
     public List<Salarie> getAllSalaries() {	      
 		return salarieService.findAll();
     }
+	
+	@GetMapping (path = "/filtre/{nom}")
+	public List<Salarie> getSalaries(@PathVariable(name = "nom", value = "nom") String nom){
+		if(nom != null){
+			return salarieService.findByNomLike("%" + nom + "%");			
+		}
+		return salarieService.findAll();
+	}
 	
 	/**
 	 * Get method with id for show detail salarié
@@ -48,10 +60,28 @@ public class SalarieRestController {
 	 * @param salarie
 	 * @return
 	 */
-	@PostMapping
-    public Salarie create(@RequestBody Salarie salarie){			
+	@PostMapping(path = "")
+    public Salarie create(@Valid @RequestBody Salarie salarie){			
         return salarieService.create(salarie);
     }
+	
+	@PutMapping(path = "{id}")
+    public Salarie update(@PathVariable(value = "id") Long id, @Valid @RequestBody Salarie salarie){
+		Salarie salarieDba = salarieService.findSalarie(id);
+		salarieDba.setNom(salarie.getNom());
+		salarieDba.setPrenom(salarie.getPrenom());
+        return salarieService.update(salarieDba);
+    }
+	
+	/**
+	 * Suppression d'un salarie
+	 * @param id
+	 * @return Salarie salaie
+	 */
+	@DeleteMapping(path = "/{id}")
+	public Salarie delete(@PathVariable("id") Long id){
+		return salarieService.delete(id);
+	}
 	
 	
 }

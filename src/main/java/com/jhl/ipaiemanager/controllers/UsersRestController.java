@@ -54,7 +54,7 @@ public class UsersRestController {
     }
 	
 	
-	@PutMapping("/users/{id}")
+	@PutMapping(path = "{id}")
     public User update(@PathVariable(value = "id") Long id, @Valid @RequestBody User user){
 		User user1 = userService.findById(id);
 		user1.setNom(user.getNom());
