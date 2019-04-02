@@ -1,11 +1,11 @@
-package com.ipaiemanager.services;
+package com.jhl.ipaiemanager.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ipaiemanager.models.Salarie;
-import com.ipaiemanager.dao.SalarieRepository;
+import com.jhl.ipaiemanager.models.Salarie;
+import com.jhl.ipaiemanager.dao.SalarieRepository;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.ipaiemanager.services;
+package com.jhl.ipaiemanager.services;
 
 import java.util.List;
 
-import com.ipaiemanager.models.Salarie;
+import com.jhl.ipaiemanager.models.Salarie;
 
 
 

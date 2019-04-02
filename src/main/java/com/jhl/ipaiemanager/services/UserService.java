@@ -1,8 +1,8 @@
-package com.ipaiemanager.services;
+package com.jhl.ipaiemanager.services;
 import java.util.List;
 
 
-import com.ipaiemanager.models.User;
+import com.jhl.ipaiemanager.models.User;
 
 public interface UserService {
 	List<User> findAll();

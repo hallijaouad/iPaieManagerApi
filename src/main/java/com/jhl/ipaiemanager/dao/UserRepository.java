@@ -1,5 +1,5 @@
-package com.ipaiemanager.dao;
-import com.ipaiemanager.models.User;
+package com.jhl.ipaiemanager.dao;
+import com.jhl.ipaiemanager.models.User;
 
 import java.util.List;
 

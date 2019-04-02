@@ -1,4 +1,4 @@
-package com.ipaiemanager.models;
+package com.jhl.ipaiemanager.models;
 
 import javax.persistence.*;
 

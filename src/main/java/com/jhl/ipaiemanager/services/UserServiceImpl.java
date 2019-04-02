@@ -1,4 +1,4 @@
-package com.ipaiemanager.services;
+package com.jhl.ipaiemanager.services;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.ipaiemanager.models.User;
-import com.ipaiemanager.dao.UserRepository;
+import com.jhl.ipaiemanager.models.User;
+import com.jhl.ipaiemanager.dao.UserRepository;
 import javax.transaction.Transactional;
 
 @Service

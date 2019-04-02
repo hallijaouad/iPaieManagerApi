@@ -1,11 +1,11 @@
-package com.ipaiemanager.controllers;
+package com.jhl.ipaiemanager.controllers;
 import java.util.List;
 
 
 import javax.validation.Valid;
 
-import com.ipaiemanager.models.User;
-import com.ipaiemanager.services.UserService;
+import com.jhl.ipaiemanager.models.User;
+import com.jhl.ipaiemanager.services.UserService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

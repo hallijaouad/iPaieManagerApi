@@ -1,4 +1,4 @@
-package com.ipaiemanager;
+package com.jhl.ipaiemanager;
 
 import java.util.Arrays;
 
