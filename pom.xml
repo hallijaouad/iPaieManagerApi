@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.rh</groupId>
-	<artifactId>iPaieManager</artifactId>
+	<artifactId>iPaieManagerApi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>iPaieManager</name>
+	<name>iPaieManagerApi</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
