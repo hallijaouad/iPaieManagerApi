@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("index")
 public class IndexRestController{	
 	@GetMapping ("")
     public String Service(Model model) {	      
-		 return "forward:/index.html";
+		 return "forward:/public/index.html";
     }
 }
