@@ -27,7 +27,7 @@ public class Salarie implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;	
 	
-	@Column(name = "nom")
+	@Column(name = "nom", nullable = false)
 	private String nom;	
 	
 	@Column(name = "prenom")
@@ -35,4 +35,7 @@ public class Salarie implements Serializable{
 	
 	@Column(name = "email")
 	private String email; 
+	
+	@Column(columnDefinition = "text")
+    private String description;
 }
