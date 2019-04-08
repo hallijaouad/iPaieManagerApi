@@ -30,7 +30,8 @@ import com.jhl.ipaiemanager.services.SalarieService;
 public class SalarieRestController {
 
 	@Autowired
-	private SalarieService salarieService;		
+	private SalarieService salarieService;	
+	
 	
 	/**
 	 * Get all salaries
@@ -55,8 +56,12 @@ public class SalarieRestController {
 	 * @return
 	 */
 	@GetMapping(path = {"/{id}"})
-    public Salarie findOne(@PathVariable("id") Long id){
-        return salarieService.findSalarie(id);
+    public Salarie findOne(@PathVariable("id") Long id) throws ResourceNotFoundException {		
+		Salarie salarie = salarieService.findSalarie(id);
+		if(salarie.getId() == null){
+			throw new ResourceNotFoundException("Salarie non trouvé " + id);
+		}
+        return salarie;
     }
 	
 	/**
