@@ -84,7 +84,7 @@ public class SalarieRestController {
 		salarieDba.setNom(salarie.getNom());
 		salarieDba.setPrenom(salarie.getPrenom());
 		salarieDba.setEmail(salarie.getEmail());
-		salarieDba.setDate_embauche(salarie.getDate_embauche());
+		//salarieDba.setDate_embauche(salarie.getDate_embauche());
 		salarieDba.setMobile(salarie.getMobile());
         return salarieService.update(salarieDba);
     }

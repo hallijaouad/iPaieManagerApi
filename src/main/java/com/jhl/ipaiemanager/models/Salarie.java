@@ -44,8 +44,8 @@ public class Salarie implements Serializable{
 	@Column(name = "mobile")
 	private String mobile; 
 	
-	@Column(name = "date_embauche", nullable = true)
-	private Date date_embauche;
+	// @Column(name = "date_embauche", nullable = true)
+	// private Date date_embauche;
 	
 	@Column(columnDefinition = "text")
     private String description;
