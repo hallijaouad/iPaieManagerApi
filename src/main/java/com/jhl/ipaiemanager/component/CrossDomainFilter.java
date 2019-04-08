@@ -1,5 +1,4 @@
 package com.jhl.ipaiemanager.component;
-
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -12,13 +11,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 public class CrossDomainFilter extends OncePerRequestFilter {
+
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
-            throws ServletException, IOException {
-    		//toutes les URI sont autorisées
-        	httpServletResponse.addHeader("Access-Control-Allow-Origin", "*"); 
-        	httpServletResponse.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        	httpServletResponse.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, x-req");           
-        	filterChain.doFilter(httpServletRequest, httpServletResponse);        
+    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
+                                    final FilterChain filterChain) throws ServletException, IOException {
+        //response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+       // response.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, HEAD, OPTIONS");
+       // response.addHeader("Access-Control-Allow-Headers", "*");
+        //response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials");
+        //response.addHeader("Access-Control-Allow-Credentials", "true");
+        //response.addIntHeader("Access-Control-Max-Age", 10);
+        filterChain.doFilter(request, response);
     }
 }

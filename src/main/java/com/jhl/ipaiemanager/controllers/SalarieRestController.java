@@ -1,10 +1,12 @@
 package com.jhl.ipaiemanager.controllers;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jhl.ipaiemanager.exceptions.ResourceNotFoundException;
 import com.jhl.ipaiemanager.models.Salarie;
 
 import com.jhl.ipaiemanager.services.SalarieService;
 
 
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/salaries")
 
@@ -66,10 +70,17 @@ public class SalarieRestController {
     }
 	
 	@PutMapping(path = "{id}")
-    public Salarie update(@PathVariable(value = "id") Long id, @Valid @RequestBody Salarie salarie){
+    public Salarie update(@PathVariable(value = "id") Long id, @Valid @RequestBody Salarie salarie) throws URISyntaxException{
 		Salarie salarieDba = salarieService.findSalarie(id);
+		if(salarieDba.getId() == null){
+			throw new ResourceNotFoundException("Salarie non trouvé " + id);
+		}
+		salarieDba.setMatricule(salarie.getMatricule());
 		salarieDba.setNom(salarie.getNom());
 		salarieDba.setPrenom(salarie.getPrenom());
+		salarieDba.setEmail(salarie.getEmail());
+		salarieDba.setDate_embauche(salarie.getDate_embauche());
+		salarieDba.setMobile(salarie.getMobile());
         return salarieService.update(salarieDba);
     }
 	
@@ -80,6 +91,10 @@ public class SalarieRestController {
 	 */
 	@DeleteMapping(path = "/{id}")
 	public Salarie delete(@PathVariable("id") Long id){
+		Salarie salarieDba = salarieService.findSalarie(id);
+		if(salarieDba.getId() == null){
+			throw new ResourceNotFoundException("Salarie non trouvé " + id);
+		}
 		return salarieService.delete(id);
 	}
 	

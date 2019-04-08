@@ -70,7 +70,7 @@ public class SalarieServiceImpl implements SalarieService {
     	Salarie salarie = findSalarie(id);
     	// si salarié est existe
     	if(salarie.getId() > 0){
-    		this.salarieRepository.delete(salarie);
+    		this.salarieRepository.deleteById(id);
     	}
     	return salarie;
     }

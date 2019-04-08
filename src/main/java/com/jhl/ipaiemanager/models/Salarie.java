@@ -1,6 +1,8 @@
 package com.jhl.ipaiemanager.models;
 
 import java.io.Serializable;
+import java.sql.Date;
+
 import javax.persistence.*;
 
 import lombok.*;
@@ -17,8 +19,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of= {"nom","prenom","email"})
-@ToString(of= {"nom","prenom","email"})
+@EqualsAndHashCode(of= {"matricule", "nom","prenom","email","date_embauche"})
+@ToString(of= {"matricule", "nom","prenom","email","date_embauche"})
 
 public class Salarie implements Serializable{	
 	private static final long serialVersionUID = 1L;	
@@ -26,6 +28,9 @@ public class Salarie implements Serializable{
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;	
+	
+	@Column(name = "matricule", nullable = false)
+	private String matricule; 
 	
 	@Column(name = "nom", nullable = false)
 	private String nom;	
@@ -35,6 +40,12 @@ public class Salarie implements Serializable{
 	
 	@Column(name = "email")
 	private String email; 
+	
+	@Column(name = "mobile")
+	private String mobile; 
+	
+	@Column(name = "date_embauche", nullable = true)
+	private Date date_embauche;
 	
 	@Column(columnDefinition = "text")
     private String description;
