@@ -5,6 +5,8 @@ import java.sql.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,10 +21,10 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of= {"matricule", "nom","prenom","email","date_embauche"})
+@EqualsAndHashCode(of= {"matricule", "nom","prenom","email","date_embauche"}, callSuper=false)
 @ToString(of= {"matricule", "nom","prenom","email","date_embauche"})
 
-public class Salarie implements Serializable{	
+public class Salarie extends AuditModel implements Serializable {	
 	private static final long serialVersionUID = 1L;	
 	@Id		
 	@Column(name = "id")
@@ -45,6 +47,7 @@ public class Salarie implements Serializable{
 	private String mobile; 
 	
 	@Column(name = "date_embauche", nullable = true)
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date date_embauche;
 	
 	@Column(columnDefinition = "text")
