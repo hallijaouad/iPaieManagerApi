@@ -34,6 +34,19 @@ public class Salarie extends AuditModel implements Serializable {
 	@Column(name = "matricule", nullable = false)
 	private String matricule; 
 	
+	// Numéro de cnss >> numérique
+	@Column(name = "num_cnss")
+	private Long num_cnss;
+	
+	// Contrat déterminée ou indérteminée
+	@Column (name = "contrat_duree_type", columnDefinition = "enum('DETERMINEE', 'INDETERMINEE')")
+	@Enumerated(EnumType.STRING)
+	private ContratDureeType contrat_duree_type;
+	
+	// Libellé du poste
+	@Column (name = "poste_intitule")
+	private String poste_intitule;
+	
 	@Column(name = "nom", nullable = false)
 	private String nom;	
 	
@@ -52,4 +65,22 @@ public class Salarie extends AuditModel implements Serializable {
 	
 	@Column(columnDefinition = "text")
     private String description;
+	
+	/**
+	 * Type de contrat
+	 * @author Jaouad_Halli
+	 *
+	 */
+	public enum ContratDureeType{
+		DETERMINEE("DETERMINEE"),
+		INDETERMINEE("INDETERMINEE");		
+		private String type;
+		ContratDureeType(String type){
+	       this.type= type;
+	    }
+	    public String getContratDureeType(){
+	        return this.type;
+	    }
+	}
+	
 }
