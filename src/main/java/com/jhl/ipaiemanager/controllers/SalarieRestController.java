@@ -56,7 +56,7 @@ public class SalarieRestController {
 	 * @return
 	 */
 	@GetMapping(path = {"/{id}"})
-    public Salarie findOne(@PathVariable("id") Long id) throws ResourceNotFoundException {		
+    public Salarie getSalarie(@PathVariable("id") Long id) throws ResourceNotFoundException {		
 		Salarie salarie = salarieService.findSalarie(id);
 		if(salarie.getId() == null){
 			throw new ResourceNotFoundException("Salarie non trouvé " + id);
@@ -87,7 +87,7 @@ public class SalarieRestController {
 		//salarieDba.setDate_embauche(salarie.getDate_embauche());
 		salarieDba.setMobile(salarie.getMobile());
         return salarieService.update(salarieDba);
-    }
+    }	
 	
 	/**
 	 * Suppression d'un salarie
