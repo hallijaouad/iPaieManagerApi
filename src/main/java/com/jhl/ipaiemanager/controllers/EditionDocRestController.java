@@ -23,12 +23,12 @@ public class EditionDocRestController {
 	@Autowired
 	private SalarieService salarieService;
 
-	@RequestMapping("/generatePDF")
+	@RequestMapping("/attestation")
 	public String getPDFView(Model model) throws Exception {
 		List<Salarie> salaries = salarieService.findAll();
 		Map<Object, Object> data = new HashMap<>();
 		data.put("salaries", salaries);
-		util.createPdf("attestion/tepmlate", data, "salaries");
+		util.createPdf("attestation/template", data, "salaries");
 		model.addAttribute("message", "PDF Downloaded successfully..");
 		return "test";
 	}

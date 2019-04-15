@@ -42,7 +42,7 @@ public class PdfGenerator {
 			ITextRenderer renderer = new ITextRenderer();
 			renderer.setDocumentFromString(processedHtml);
 			renderer.layout();
-			renderer.createPDF(os);
+			renderer.createPDF(os, false);
 			renderer.finishPDF();
 			System.out.println("PDF created successfully");
 		} finally {

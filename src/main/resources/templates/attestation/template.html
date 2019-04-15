@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" />
         <link rel="stylesheet" type="text/css" media="all" href="style.css"/>
     </head>
-
-    <body>    
-
+    <body>  
+        <h1>Salariés</h1>  
         
-
-        <h1>YOUR EXAMPLE THYMELEAF PDF</h1>
-
-               
+        <div id="wrapper">
+		<table id="keywords" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Email</th>					
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="lalign" th:each="salarie : ${salaries}">
+					<td th:text="${salarie.nom}">Nom</td>
+					<td th:text="${salarie.prenom}">Prénom</td>
+					<td th:text="${salarie.email}">Email</td>					
+				</tr>
+			</tbody>
+		</table>
+	</div>             
     </body>
-
 </html>
