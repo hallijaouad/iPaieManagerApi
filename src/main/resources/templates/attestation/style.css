@@ -112,3 +112,54 @@ hr {
 .next-page {
     page-break-before: always
 }
+
+
+
+ /** page structure **/
+		#wrapper {
+			display: block;			
+			background: #e2ecec;			
+			-webkit-box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.35);
+		}
+        /** table salariés */
+
+			#keywords {				
+				font-size: 1.2em;
+				width:100%;				
+			}
+			#keywords thead {
+				cursor: pointer;
+				background: #006765;
+			}
+			#keywords thead tr th {
+				font-weight: bold;
+				padding: 12px 10px;				
+			}
+			#keywords thead tr th span {
+				padding-right: 20px;
+				background-repeat: no-repeat;
+				background-position: 100% 100%;
+			}
+			#keywords thead tr th.headerSortUp, 
+			#keywords thead tr th.headerSortDown
+				{
+				background: #c9dff0;
+			}
+			/**
+			#keywords thead tr th.headerSortUp span {
+				 background-image: url('http://i.imgur.com/SP99ZPJ.png');
+			}
+			#keywords thead tr th.headerSortDown span {
+				/* background-image: url('http://i.imgur.com/RkA9MBo.png');
+			}
+			*/
+			#keywords tbody tr {
+				color: navy;
+			}
+			#keywords tbody tr td {
+				text-align: left;
+				padding: 15px 10px;
+			}
+			#keywords tbody tr td.calign {
+				text-align: center;
+			}
