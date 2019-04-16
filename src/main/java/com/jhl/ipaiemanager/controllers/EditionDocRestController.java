@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +25,7 @@ public class EditionDocRestController {
 	@Autowired
 	private SalarieService salarieService;
 
-	@RequestMapping("/attestation")
+	@PostMapping("")
 	public String getPDFView(Model model) throws Exception {
 		List<Salarie> salaries = salarieService.findAll();
 		Map<Object, Object> data = new HashMap<>();
@@ -31,6 +33,17 @@ public class EditionDocRestController {
 		util.createPdf("attestation/template", data, "salaries");
 		model.addAttribute("message", "PDF Downloaded successfully..");
 		return "test";
+	}
+	
+	
+	@RequestMapping(path = {"/attestation_salaire/{id}"})
+	public String getPDFView(Model model, @PathVariable("id") Long id) throws Exception {
+		Salarie salarie = salarieService.findSalarie(id);
+		Map<Object, Object> data = new HashMap<>();
+		data.put("salaries", salarie);
+		String filePath = util.createPdf("attestation/template", data, "salaries");
+		model.addAttribute("message", "PDF Downloaded successfully..");
+		return filePath;
 	}
 
 }

@@ -20,7 +20,7 @@ public class PdfGenerator {
 	@Autowired
 	private TemplateEngine templateEngine;
 
-	public void createPdf(String templateName, Map<Object, Object> map, String fileName) throws Exception {
+	public String createPdf(String templateName, Map<Object, Object> map, String fileName) throws Exception {
 		Assert.notNull(templateName, "The templateName can not be null");
 		
 		Context ctx = new Context();
@@ -37,14 +37,16 @@ public class PdfGenerator {
 		String fileNameOut = (fileName != null) ? fileName : "default";
 		
 		try {
-			final File outputFile = File.createTempFile(fileNameOut, ".pdf", new File("D:/jhl/"));
+			ClassLoader classLoader = getClass().getClassLoader();
+			String folder = classLoader.getResource("temps").getFile();				
+			final File outputFile = File.createTempFile(fileNameOut, ".pdf", new File(folder));
 			os = new FileOutputStream(outputFile);
 			ITextRenderer renderer = new ITextRenderer();
 			renderer.setDocumentFromString(processedHtml);
 			renderer.layout();
 			renderer.createPDF(os, false);
 			renderer.finishPDF();
-			System.out.println("PDF created successfully");
+			return outputFile.getPath();
 		} finally {
 			if (os != null) {
 				try {
