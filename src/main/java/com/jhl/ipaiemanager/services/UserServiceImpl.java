@@ -1,66 +1,73 @@
 package com.jhl.ipaiemanager.services;
 
 import java.util.List;
+import java.util.Optional;
+
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-import com.jhl.ipaiemanager.models.User;
+import com.jhl.ipaiemanager.models.Utilisateur;
 import com.jhl.ipaiemanager.dao.UserRepository;
 import javax.transaction.Transactional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    /**
-     * Creation d'un nouveau user
-     */
     
-    @Override
-    @Transactional
-    public User create(User user) { 
-        return userRepository.save(user);
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    		this.userRepository = userRepository;
+    		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     
     @Override
-    @Transactional
-    public User update(User user) {     
-        return userRepository.save(user);
-    }
-    
-    @Override
-    public List<User> findAll() {
-    	return userRepository.findAll();
-    }
-   
-    /**
-     * Recherche d'un utilisateur par nom
-     */
-    
-    @Override
-    public List<User> findByNom(String nom) {
-    	return userRepository.findByNom(nom);    	
-    }
-    
-    @Override
-    public User findById(Long id) {
-        return userRepository.findByPkUser(id);
+    public Utilisateur getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 	@Override
-	public User delete(Long id) {
-		User user = findById(id);
-        if(user != null){
-        	userRepository.deleteById(id);
-        }
-        return user;
+	public List<Utilisateur> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
 
+	@Override
+	public List<Utilisateur> findByNom(String nom) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Utilisateur create(Utilisateur user) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		return userRepository.save(user);
+		
+	}
+
+	@Override
+	public Utilisateur update(Utilisateur user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Optional<Utilisateur> delete(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Optional<Utilisateur> findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }
