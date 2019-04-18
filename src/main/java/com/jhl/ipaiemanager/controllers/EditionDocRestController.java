@@ -25,7 +25,7 @@ public class EditionDocRestController {
 	@Autowired
 	private SalarieService salarieService;
 
-	@PostMapping("")
+	@PostMapping("salaries")
 	public String getPDFView(Model model) throws Exception {
 		List<Salarie> salaries = salarieService.findAll();
 		Map<Object, Object> data = new HashMap<>();

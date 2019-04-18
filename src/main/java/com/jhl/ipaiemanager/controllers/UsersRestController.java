@@ -23,8 +23,12 @@ public class UsersRestController {
 	@Autowired
     private UserService userService;
 	
-
-	@PostMapping("/sign-up")
+	/**
+	 * Création d'un nouveau utilisateur
+	 * @param user
+	 * @return
+	 */
+	@PostMapping()
     public Utilisateur createUser(@RequestBody Utilisateur user) {       
 		return userService.create(user);
     }
