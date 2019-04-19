@@ -44,7 +44,7 @@ public class PdfGenerator {
 			ITextRenderer renderer = new ITextRenderer();
 			renderer.setDocumentFromString(processedHtml);
 			renderer.layout();
-			renderer.createPDF(os, false);
+			//renderer.createPDF(os, false);
 			renderer.finishPDF();
 			return outputFile.getPath();
 		} finally {
