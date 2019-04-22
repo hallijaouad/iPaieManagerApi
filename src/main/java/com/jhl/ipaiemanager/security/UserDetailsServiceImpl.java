@@ -25,12 +25,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    	Utilisateur appUser = userService.getUserByEmail(email);
-        if(appUser==null) throw new UsernameNotFoundException("invalid user");
+    	Utilisateur utilsateur = userService.getUserByEmail(email);
+        if(utilsateur==null) throw new UsernameNotFoundException("invalid user");
         Collection<GrantedAuthority> authorities=new ArrayList<>();
-        appUser.getRoles().forEach(r->{
+        utilsateur.getRoles().forEach(r->{
             authorities.add(new SimpleGrantedAuthority(r.getRefext()));
         });       
-        return new User(appUser.getEmail(), appUser.getPassword(), authorities);
+        return new User(utilsateur.getEmail(), utilsateur.getPassword(), authorities);
     }
 }

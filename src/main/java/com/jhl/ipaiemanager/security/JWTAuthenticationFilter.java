@@ -68,6 +68,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
          auth.getAuthorities().forEach(a->{
              roles.add(a.getAuthority());
          });
+         
          String token= JWT.create()
                  .withIssuer(req.getRequestURI())
                  .withSubject(user.getUsername())

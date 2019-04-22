@@ -31,7 +31,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     	JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager());
     	authenticationFilter.setFilterProcessesUrl("/api/auth");
     	
-        http.cors().and().csrf().disable().authorizeRequests()
+    	
+           
+    	
+        http.cors().and().csrf().disable().requestMatchers().antMatchers("/static/**").and().authorizeRequests()
+        		.antMatchers("/", "/index.html").permitAll()        		
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers(HttpMethod.GET, SIGN_OUT_URL).permitAll()
                 .anyRequest().authenticated()
@@ -39,6 +43,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .addFilter(authenticationFilter)
+                
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
