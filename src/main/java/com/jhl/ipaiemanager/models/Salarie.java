@@ -60,7 +60,7 @@ public class Salarie extends AuditModel implements Serializable {
 	private String mobile; 
 	
 	@Column(name = "date_embauche", nullable = true)
-	@JsonFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date date_embauche;
 	
 	@Column(columnDefinition = "text")

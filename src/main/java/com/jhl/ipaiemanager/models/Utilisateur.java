@@ -1,10 +1,12 @@
 package com.jhl.ipaiemanager.models;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 import javax.persistence.*;
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -57,8 +59,8 @@ public class Utilisateur extends AuditModel implements Serializable {
 	 * Jointure avec la table roles
 	 */
 	
-	@ManyToMany(cascade = CascadeType.DETACH)
+	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "fk_user"), inverseJoinColumns = @JoinColumn(name = "fk_role"))
-    private Set<Role> roles = new HashSet<>();
+	private Collection<Role> roles=new ArrayList<>();
 
 }

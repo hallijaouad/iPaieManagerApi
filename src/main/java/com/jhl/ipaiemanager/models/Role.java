@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -11,7 +12,9 @@ import lombok.ToString;
 @Data 
 @AllArgsConstructor 
 @NoArgsConstructor 
-@ToString
+@EqualsAndHashCode(of= {"refext","libelle"})
+@ToString(of= {"refext","libelle"})
+
 public class Role implements Serializable{
 	 /**
 	 * 
