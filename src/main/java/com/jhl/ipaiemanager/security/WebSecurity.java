@@ -29,23 +29,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	//URI d'auth
     	JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager());
-    	authenticationFilter.setFilterProcessesUrl("/api/auth");
+    	authenticationFilter.setFilterProcessesUrl("/api/auth");  
     	
-    	
-           
-    	
-        http.cors().and().csrf().disable().requestMatchers().antMatchers("/static/**").and().authorizeRequests()
-        		.antMatchers("/", "/index.html").permitAll()        		
-                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-                .antMatchers(HttpMethod.GET, SIGN_OUT_URL).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                .addFilter(authenticationFilter)
-                
-                // this disables session creation on Spring Security
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    	http.authorizeRequests()
+        .antMatchers("/index.html", "/", "/home", 
+         "/api/auth","/favicon.ico","/js/*.js","/css/*.css","/*.js.map").permitAll()        
+        
+        .anyRequest().authenticated().and().csrf().disable()           
+            .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+            .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+            .addFilter(authenticationFilter)
+            
+            // this disables session creation on Spring Security
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override
