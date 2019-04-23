@@ -33,7 +33,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     	
     	http.authorizeRequests()
         .antMatchers("/index.html", "/", "/home", 
-         "/api/auth","/favicon.ico","/js/*.js","/css/*.css","/*.js.map").permitAll()        
+         "/api/auth","/favicon.ico","/js/*.js","/css/*.css","/*.js.map").permitAll()
+        .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
         
         .anyRequest().authenticated().and().csrf().disable()           
             .addFilter(new JWTAuthenticationFilter(authenticationManager()))
