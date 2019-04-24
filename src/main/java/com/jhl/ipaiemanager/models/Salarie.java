@@ -21,14 +21,14 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of= {"matricule", "nom","prenom","email","date_embauche"}, callSuper=false)
-@ToString(of= {"matricule", "nom","prenom","email","date_embauche"})
+@EqualsAndHashCode(of= {"matricule", "nom","prenom","email","date_embauche","num_cnss", "contrat_duree_type", "poste_intitule", "description"}, callSuper=false)
+@ToString(of= {"matricule", "nom","prenom","email","date_embauche", "num_cnss", "contrat_duree_type", "poste_intitule", "description"})
 
 public class Salarie extends AuditModel implements Serializable {	
 	private static final long serialVersionUID = 1L;	
 	@Id		
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;	
 	
 	@Column(name = "matricule", nullable = false)
@@ -39,7 +39,7 @@ public class Salarie extends AuditModel implements Serializable {
 	private Long num_cnss;
 	
 	// Contrat déterminée ou indérteminée
-	@Column (name = "contrat_duree_type", columnDefinition = "enum('DETERMINEE', 'INDETERMINEE')")
+	@Column (name = "contrat_duree_type")
 	@Enumerated(EnumType.STRING)
 	private ContratDureeType contrat_duree_type;
 	
