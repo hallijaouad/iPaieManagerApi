@@ -5,7 +5,7 @@ import java.util.Optional;
 import com.jhl.ipaiemanager.models.Utilisateur;
 
 public interface UserService {
-	List<Utilisateur> findAll();
+	List<Utilisateur> getAllUsers();
 	List<Utilisateur> findByNom(String nom);
 	Utilisateur create (Utilisateur user);
 	Utilisateur update (Utilisateur user);	

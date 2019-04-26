@@ -31,4 +31,9 @@ public class Role implements Serializable{
 	 	
 	 	@Column (name = "libelle", updatable = true, nullable = false)
 	 	private String libelle;
+	 	
+	 	public Role(String refext){
+			super();
+			this.refext = refext;
+		}
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
+import com.jhl.ipaiemanager.models.Salarie;
 import com.jhl.ipaiemanager.models.Utilisateur;
 import com.jhl.ipaiemanager.dao.UserRepository;
 import javax.transaction.Transactional;
@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public List<Utilisateur> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Utilisateur> getAllUsers() {
+		List<Utilisateur> users = this.userRepository.findAll();   
+        return users;		
 	}
 
 	@Override
@@ -60,14 +60,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Optional<Utilisateur> delete(Long id) {
-		// TODO Auto-generated method stub
+		this.userRepository.deleteById(id);
 		return null;
 	}
 
 	@Override
 	public Optional<Utilisateur> findById(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.userRepository.findById(id);
 	}
     
 }
