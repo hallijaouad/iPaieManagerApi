@@ -1,42 +1,31 @@
 package com.jhl.ipaiemanager.controllers;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.jhl.ipaiemanager.exceptions.ConflictException;
 import com.jhl.ipaiemanager.exceptions.ResourceNotFoundException;
-import com.jhl.ipaiemanager.models.Role;
-import com.jhl.ipaiemanager.models.Salarie;
+
 import com.jhl.ipaiemanager.models.Utilisateur;
-import com.jhl.ipaiemanager.models.Salarie.ContratDureeType;
-import com.jhl.ipaiemanager.services.RoleService;
+
 import com.jhl.ipaiemanager.services.UserService;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.FieldDefaults;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping({"/api/users"})
+@RequestMapping({Utilisateur.RESOURCE_PATH})
 
 public class UsersRestController {	
 	
@@ -44,10 +33,17 @@ public class UsersRestController {
     private UserService userService;	
 	
 	
+	
 	@GetMapping("")	
 	public List<Utilisateur> getUsers(){
 		return this.userService.getAllUsers();
 	}
+	
+	@GetMapping("{id}")	
+	public Utilisateur getUser(@PathVariable(value = "id") Long id) {
+		// TODO Auto-generated method stub
+		return this.userService.getUserById(id);
+	}	
 	
 	
 	/**
@@ -56,15 +52,64 @@ public class UsersRestController {
 	 * @return
 	 */
 	@PostMapping()
-    public Utilisateur createUser(@RequestBody Utilisateur user) {
+    public Utilisateur createUser(@RequestBody Utilisateur user){
 		/**
         Role role =  roleService.findByRoleRefext("");                  
         Collection<Role> roles=new ArrayList<>();
         roles.add(role);
-        System.out.println(roles);
+        System.out.println(Utilisateur);
         user.setRoles(roles);
         */
+		
+		//verifier est ce que l'utilisateur existe déja sur bdd
+		Utilisateur userBddData = this.userService.getUserByEmail(user.getEmail());		
+		if(userBddData.getEmail() != null){
+			throw new ResourceNotFoundException(Utilisateur.RESOURCE_PATH, String.format("Email %s existe déja pour un autre utilisateur", user.getEmail()));
+		}	
+		
+		// check paword and confirmation
+		
+		
 		return userService.create(user);
+    }
+	
+	/**
+	 * Mettre à jour un utilisateur existant avec une nouvelle représentation. L'état entier de l'entité est
+	 * remplacé par celui fourni avec RequestBody (cela signifie que les champs nuls sont exclus de la maj de l'entité utilisateur)
+	 * @param id
+	 * @param user
+	 * @return user modifier
+	 */
+	@PutMapping(path = "{id}")
+    public Utilisateur updateUser(@PathVariable(value = "id") final Long id, @RequestBody  Utilisateur userNewData) {
+		/**
+        Role role =  roleService.findByRoleRefext("");                  
+        Collection<Role> roles=new ArrayList<>();
+        roles.add(role);
+        System.out.println(Utilisateur);
+        user.setRoles(roles);
+        */
+		// Donnée de l'utilisateur sur BDD
+		Utilisateur userBddData = this.userService.getUserById(id);	
+		//Controle sur update email
+		//Si email à modifier de la bdd # de l'email du flux
+		if(!userBddData.getEmail().equals(userNewData.getEmail())){
+			/* si le noouvau email existe déja dans la bdd
+			try{
+				Utilisateur userBddDataByEamail = userService.getUserByEmail(userNewData.getEmail());
+				if(userBddDataByEamail.getId() != null){
+					throw new ConflictException(Utilisateur.RESOURCE_PATH, String.format("Email %s existe déja pour un autre utilisateur", userNewData.getEmail()));
+				}
+			}catch(Exception ex){
+				throw new ResourceNotFoundException(Utilisateur.RESOURCE_PATH, String.format("Error", userNewData.getEmail()), ex);
+			}	*/	
+			throw new ConflictException(Utilisateur.RESOURCE_PATH, String.format("Traitement en cours pour la modification de l'email", userNewData.getEmail()));
+			
+		}		
+		// Copier les données envoyer par PUT vers données de la bdd
+		BeanUtils.copyProperties(userNewData, userBddData, "id", "password");	
+		//force update user new data
+		return this.userService.update(userBddData);
     }
 	
 	/**
@@ -74,12 +119,11 @@ public class UsersRestController {
 	 */
 	@DeleteMapping(path = "/{id}")
 	public Optional<Utilisateur> delete(@PathVariable("id") Long id){
-		Optional<Utilisateur> userDb = this.userService.findById(id);
-		if(userDb.get() == null){
-			throw new ResourceNotFoundException("User non trouvé " + id);
-		}
-		return this.userService.delete(id);
+		Utilisateur userDb = this.userService.getUserById(id);		
+		return this.userService.delete(userDb.getId());
 	}
+	
+	
 	
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,11 +58,7 @@ public class SalarieRestController {
 	 */
 	@GetMapping(path = {"/{id}"})
     public Salarie getSalarie(@PathVariable("id") Long id) throws ResourceNotFoundException {		
-		Salarie salarie = salarieService.findSalarie(id);
-		if(salarie.getId() == null){
-			throw new ResourceNotFoundException("Salarie non trouvé " + id);
-		}
-        return salarie;
+		return  salarieService.findSalarie(id);	      
     }
 	
 	/**
@@ -75,17 +72,10 @@ public class SalarieRestController {
     }
 	
 	@PutMapping(path = "{id}")
-    public Salarie update(@PathVariable(value = "id") Long id, @Valid @RequestBody Salarie salarie) throws URISyntaxException{
+    public Salarie update(@PathVariable(value = "id") Long id, @Valid @RequestBody Salarie newSalarie) throws URISyntaxException{
 		Salarie salarieDba = salarieService.findSalarie(id);
-		if(salarieDba.getId() == null){
-			throw new ResourceNotFoundException("Salarie non trouvé " + id);
-		}
-		salarieDba.setMatricule(salarie.getMatricule());
-		salarieDba.setNom(salarie.getNom());
-		salarieDba.setPrenom(salarie.getPrenom());
-		salarieDba.setEmail(salarie.getEmail());
-		//salarieDba.setDate_embauche(salarie.getDate_embauche());
-		salarieDba.setMobile(salarie.getMobile());
+		// Copier les données envoyer par PUT vers données de la bdd
+		BeanUtils.copyProperties(newSalarie, salarieDba, "id");				
         return salarieService.update(salarieDba);
     }	
 	
@@ -96,11 +86,8 @@ public class SalarieRestController {
 	 */
 	@DeleteMapping(path = "/{id}")
 	public Salarie delete(@PathVariable("id") Long id){
-		Salarie salarieDba = salarieService.findSalarie(id);
-		if(salarieDba.getId() == null){
-			throw new ResourceNotFoundException("Salarie non trouvé " + id);
-		}
-		return salarieService.delete(id);
+		Salarie salarieDba = salarieService.findSalarie(id);		
+		return salarieService.delete(salarieDba.getId());
 	}
 	
 	

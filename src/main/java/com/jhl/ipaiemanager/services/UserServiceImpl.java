@@ -6,12 +6,16 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.jhl.ipaiemanager.models.Salarie;
+
 import com.jhl.ipaiemanager.models.Utilisateur;
-import com.jhl.ipaiemanager.dao.UserRepository;
+
+import com.jhl.ipaiemanager.dao.UtiliseteurRepository;
+import com.jhl.ipaiemanager.exceptions.ResourceNotFoundException;
+
 import javax.transaction.Transactional;
 
 @Service
@@ -19,11 +23,11 @@ import javax.transaction.Transactional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UtiliseteurRepository userRepository;
     
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UtiliseteurRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
     		this.userRepository = userRepository;
     		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -37,7 +41,8 @@ public class UserServiceImpl implements UserService {
 	public List<Utilisateur> getAllUsers() {
 		List<Utilisateur> users = this.userRepository.findAll();   
         return users;		
-	}
+	}	
+	
 
 	@Override
 	public List<Utilisateur> findByNom(String nom) {
@@ -54,8 +59,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Utilisateur update(Utilisateur user) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.save(user);		
 	}
 
 	@Override
@@ -65,9 +69,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<Utilisateur> findById(Long id) {
+	public Utilisateur getUserById(Long id) throws ResourceNotFoundException{
 		// TODO Auto-generated method stub
-		return this.userRepository.findById(id);
+		return this.userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Utilisateur %d n'est pas trouvé", id));
 	}
     
 }

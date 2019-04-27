@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.jhl.ipaiemanager.models.Salarie;
 import com.jhl.ipaiemanager.dao.SalarieRepository;
+import com.jhl.ipaiemanager.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class SalarieServiceImpl implements SalarieService {
      */
     @Override
     public Salarie findSalarie(Long id) {
-        return this.salarieRepository.findSalarieById(id);
+        return this.salarieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Salarié %d n'est pas trouvé", id));
     }
     
     /**

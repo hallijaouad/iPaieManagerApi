@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -19,16 +20,22 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
+
 @Entity (name = "users")
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of= {"nom","prenom", "email"}, callSuper=false)
-@ToString(of= {"nom","prenom"})
-public class Utilisateur extends AuditModel implements Serializable {
+@EqualsAndHashCode(of= {"nom", "prenom", "email", "actif"}, callSuper=false)
+@ToString(of= {"nom","prenom", "email", "actif"})
 
+public class Utilisateur extends AuditModel implements Serializable {
+	/**
+     * Resource name to use for Utilisateur.
+     */
+    public static final String RESOURCE_PATH = "/api/users";
+    
 	/**
 	 * 
 	 */
@@ -53,7 +60,7 @@ public class Utilisateur extends AuditModel implements Serializable {
 	private String password;
 	
 	@Column (name = "actif", insertable = true, updatable = true, nullable = false)
-	private Integer actif;
+	private Integer actif;	
 	
 	/**
 	 * Jointure avec la table roles

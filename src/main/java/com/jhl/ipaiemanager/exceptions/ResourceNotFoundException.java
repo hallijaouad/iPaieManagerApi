@@ -5,17 +5,24 @@ import org.springframework.http.HttpStatus;
 
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException {
-    /**
-	 * 
-	 */
+public class ResourceNotFoundException extends HttpException {
+	
 	private static final long serialVersionUID = 1L;
 
-	public ResourceNotFoundException(String message) {
-        super(message);
+	public ResourceNotFoundException() {
+		super(HttpStatus.NOT_FOUND.getReasonPhrase());
+    }
+	
+	public ResourceNotFoundException(String message, long id) {
+        super(String.format(message, id));
     }
 
-    public ResourceNotFoundException(String message, Throwable cause) {
-        super(message, cause);
+    public ResourceNotFoundException(String resource, String message) {
+        super(resource, message);
     }
+    
+    public ResourceNotFoundException(String resource, String message, Throwable cause) {
+		super(resource, message, cause);
+	}
+	
 }
