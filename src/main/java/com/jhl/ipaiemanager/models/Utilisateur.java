@@ -6,7 +6,7 @@ import java.util.Collection;
 
 
 import javax.persistence.*;
-
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -52,6 +52,7 @@ public class Utilisateur extends AuditModel implements Serializable {
 	@Column (name = "prenom", insertable = true, updatable = true, nullable = false)
 	private String prenom;
 	
+	@NotNull(message="Veuilller indique l'email")
 	@Column (name = "email", unique = true, insertable = true, updatable = true, nullable = false)
 	private String email;
 	

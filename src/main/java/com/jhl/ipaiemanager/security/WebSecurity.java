@@ -13,7 +13,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 
 import static com.jhl.ipaiemanager.security.SecurityConstants.SIGN_UP_URL;
-import static com.jhl.ipaiemanager.security.SecurityConstants.SIGN_OUT_URL;
+
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -31,18 +31,23 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     	JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager());
     	authenticationFilter.setFilterProcessesUrl("/api/auth");  
     	
-    	http.authorizeRequests()
-        .antMatchers("/index.html", "/", "/home", 
-         "/api/auth","/favicon.ico","/js/*.js","/css/*.css","/*.js.map").permitAll()
+    	http.cors()
+    	.and()
+    	.csrf().disable()
+    	.authorizeRequests()
+    	// autorisation des files static 
+        .antMatchers("/index.html", "/","/favicon.ico","/js/*.js","/css/*.css","/*.js.map").permitAll()
+        // Autorisation end point
         .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-        
-        .anyRequest().authenticated().and().csrf().disable()           
-            .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-            .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-            .addFilter(authenticationFilter)
-            
-            // this disables session creation on Spring Security
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        // All end point autorisé avec authentification
+        .anyRequest()
+        .authenticated()
+        .and()           
+        .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+        .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+        .addFilter(authenticationFilter)
+        // this disables session creation on Spring Security
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override
@@ -50,15 +55,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
     
-  @Bean
-  CorsConfigurationSource corsConfigurationSource() {
-    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();    
-    CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
-    config.setAllowCredentials(true);
-    config.addAllowedOrigin("*");
-    config.addAllowedHeader("*");
-    config.addAllowedMethod("*");
-    source.registerCorsConfiguration("/**", config);
-    return source;
-  }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();    
+	    CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+	    config.setAllowCredentials(true);
+	    config.addAllowedOrigin("*");
+	    config.addAllowedHeader("*");
+	    config.addAllowedMethod("*");
+	    source.registerCorsConfiguration("/**", config);
+	    return source;
+    }
 }

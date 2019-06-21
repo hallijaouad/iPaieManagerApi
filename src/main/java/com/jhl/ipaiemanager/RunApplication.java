@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @SpringBootApplication
-// For insert and upadte attribut date created_at and updated_at 
+// For insert and upadte automatique attribut date created_at and updated_at 
 @EnableJpaAuditing
 public class RunApplication {    
 	public static void main(String[] args) {

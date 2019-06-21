@@ -37,7 +37,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 	
 	 @Override
 	    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-		 
+		 System.out.println("HALLI" + req.getMethod());
 		   if ("OPTIONS".equals(req.getMethod())) {
 	            res.setStatus(HttpServletResponse.SC_OK);
 	            return;

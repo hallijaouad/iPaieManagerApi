@@ -17,6 +17,7 @@ import com.jhl.ipaiemanager.dao.UtiliseteurRepository;
 import com.jhl.ipaiemanager.exceptions.ResourceNotFoundException;
 
 import javax.transaction.Transactional;
+import javax.validation.Validator;
 
 @Service
 @Transactional
@@ -52,6 +53,30 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Utilisateur create(Utilisateur user) {
+		/**
+        Role role =  roleService.findByRoleRefext("");                  
+        Collection<Role> roles=new ArrayList<>();
+        roles.add(role);
+        System.out.println(Utilisateur);
+        user.setRoles(roles);
+        */
+		
+		//Validator validator = getValidator();
+	    //validator.validate(user).stream().forEach(ValidatedValueExample::printError);
+		
+		//verifier est ce que l'utilisateur existe déja sur bdd
+		Utilisateur userBddData = this.getUserByEmail(user.getEmail());		
+		if(userBddData != null){
+			throw new ResourceNotFoundException(Utilisateur.RESOURCE_PATH, String.format("Email %s existe déja pour un autre utilisateur", user.getEmail()));
+		}	
+		
+		// si attribut actif pas dans le flux
+		if(user.getActif() == null) {
+			user.setActif(0);
+		}
+		
+		// check paword and confirmation
+		
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 		

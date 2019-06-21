@@ -80,16 +80,22 @@
 		
 		<!-- flying saucer pdf -->
 		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>itextpdf</artifactId>
+		    <version>5.5.11</version>
+		</dependency>
+		<dependency>
 			<groupId>org.xhtmlrenderer</groupId>
 			<artifactId>flying-saucer-pdf</artifactId>
-			<version>9.1.4</version>
+			<version>9.1.18</version>
 		</dependency>		
 		<dependency>
 		      <groupId>org.xhtmlrenderer</groupId>
 		      <artifactId>flying-saucer-pdf-itext5</artifactId>
-		      <version>9.1.6</version>
+		      <version>9.1.18</version>
 		      <scope>compile</scope>
 		 </dependency>
+		 
 		 <dependency>
 		      <groupId>junit</groupId>
 		      <artifactId>junit</artifactId>		      

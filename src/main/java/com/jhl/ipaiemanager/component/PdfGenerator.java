@@ -19,10 +19,13 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 public class PdfGenerator {
 	@Autowired
 	private TemplateEngine templateEngine;
-
-	public String createPdf(String templateName, Map<Object, Object> map, String fileName) throws Exception {
-		Assert.notNull(templateName, "The templateName can not be null");
-		
+	
+	/**
+	 * Prépartion des données pour template
+	 * @param map
+	 * @return
+	 */
+	private Context getCxt(Map<Object, Object> map) {
 		Context ctx = new Context();
 		if (map != null) {
 			Iterator<Entry<Object, Object>> itMap = map.entrySet().iterator();
@@ -31,7 +34,20 @@ public class PdfGenerator {
 				ctx.setVariable(pair.getKey().toString(), pair.getValue());
 			}
 		}
-		
+		return ctx;
+	}
+
+	/**
+	 * Création de fichier PDF à partir template
+	 * @param templateName
+	 * @param map
+	 * @param fileName
+	 * @return
+	 * @throws Exception
+	 */
+	public String createPdf(String templateName, Map<Object, Object> map, String fileName) throws Exception {
+		Assert.notNull(templateName, "The templateName can not be null");		
+		Context ctx = this.getCxt(map);			
 		String processedHtml = templateEngine.process(templateName, ctx);
 		FileOutputStream os = null;
 		String fileNameOut = (fileName != null) ? fileName : "default";
@@ -44,7 +60,7 @@ public class PdfGenerator {
 			ITextRenderer renderer = new ITextRenderer();
 			renderer.setDocumentFromString(processedHtml);
 			renderer.layout();
-			// renderer.createPDF(os, false);
+			//renderer.createPDF(os, false);
 			renderer.finishPDF();
 			return outputFile.getPath();
 		} finally {

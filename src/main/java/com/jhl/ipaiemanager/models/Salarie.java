@@ -21,8 +21,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of= {"matricule", "nom","prenom","email","date_embauche","num_cnss", "contrat_duree_type", "poste_intitule", "description"}, callSuper=false)
-@ToString(of= {"matricule", "nom","prenom","email","date_embauche", "num_cnss", "contrat_duree_type", "poste_intitule", "description"})
+@EqualsAndHashCode(of= {"matricule", "nom","prenom","email","date_embauche","num_cnss", "contrat_duree_type", "poste_intitule", "salaire_brut","description"}, callSuper=false)
+@ToString(of= {"matricule", "nom","prenom","email","date_embauche", "num_cnss", "contrat_duree_type", "poste_intitule", "salaire_brut", "description"})
 
 public class Salarie extends AuditModel implements Serializable {	
 	private static final long serialVersionUID = 1L;	
@@ -46,6 +46,10 @@ public class Salarie extends AuditModel implements Serializable {
 	// Libellé du poste
 	@Column (name = "poste_intitule")
 	private String poste_intitule;
+	
+	// Salaire brut
+	@Column (name = "salaire_brut")
+	private String salaire_brut;
 	
 	@Column(name = "nom", nullable = false)
 	private String nom;	

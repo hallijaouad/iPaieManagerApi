@@ -11,7 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -32,19 +32,17 @@ import static com.jhl.ipaiemanager.security.SecurityConstants.TOKEN_PREFIX;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
-    private AuthenticationFailureHandler failureHandler;
+    
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest req,
-                                                HttpServletResponse res) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
-        	Utilisateur creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), Utilisateur.class);
-
+        	System.out.println("ERROR " + req.getInputStream());
+        	Utilisateur creds = new ObjectMapper().readValue(req.getInputStream(), Utilisateur.class);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             creds.getEmail(),
@@ -99,7 +97,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             AuthenticationException failed) throws IOException, ServletException {
         //SecurityContextHolder.clearContext();
         //failureHandler.onAuthenticationFailure(request, response, failed);
-    	 String invalid_auth = "Email ou mot de passe est invlaide";
+    	 String invalid_auth = "Email ou mot de passe est invalide";
     	 String tokenJson = "{\"invalid_auth\":\"" + invalid_auth + "\"}";
     	 response.getWriter().write(tokenJson);
     }
