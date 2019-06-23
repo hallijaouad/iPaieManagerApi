@@ -2,6 +2,7 @@ package com.jhl.ipaiemanager.security;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -31,10 +32,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     	JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager());
     	authenticationFilter.setFilterProcessesUrl("/api/auth");  
     	
+    	
+    	http.authorizeRequests()
+    	.antMatchers("/v2/api-docs/**","/swagger-resources/**","/swagger-ui.html", "/configs/**", "/webjars/**", "/public")
+    	.permitAll();
+    	
     	http.cors()
     	.and()
     	.csrf().disable()
     	.authorizeRequests()
+    	//.antMatchers("/v2/api-docs/**","/swagger-resources/**","/swagger-ui.html", "/configs/**", "/webjars/**", "/public").permitAll()
     	// autorisation des files static 
         .antMatchers("/index.html", "/","/favicon.ico","/js/*.js","/css/*.css","/*.js.map").permitAll()
         // Autorisation end point
@@ -54,6 +61,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
+    
+    
     
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

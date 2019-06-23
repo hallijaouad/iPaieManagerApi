@@ -7,6 +7,11 @@ import com.jhl.ipaiemanager.models.Utilisateur;
 
 import com.jhl.ipaiemanager.services.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping({Utilisateur.RESOURCE_PATH})
+@Api(tags = "utilisateurs")
 
 public class UsersRestController {	
 	
@@ -38,6 +44,8 @@ public class UsersRestController {
 	 */
 	
 	@GetMapping("")	
+	@ApiOperation(value = "Utilisateurs")
+	
 	public List<Utilisateur> getUsers(){
 		return this.userService.getAllUsers();
 	}

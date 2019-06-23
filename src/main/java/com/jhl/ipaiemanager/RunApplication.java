@@ -1,5 +1,6 @@
 package com.jhl.ipaiemanager;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -37,5 +38,10 @@ public class RunApplication {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+	
+	@Bean
+	  public ModelMapper modelMapper() {
+	    return new ModelMapper();
+	  }
 	
 }
