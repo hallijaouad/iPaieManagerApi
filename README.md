@@ -7,3 +7,5 @@ https://github.com/hallijaouad/iPaieManagerApi
 https://ipaiemanager.herokuapp.com
 ## email >> admin@gmail.com
 ## pwd >> admin
+# OpenApi
+https://ipaiemanager.herokuapp.com/swagger-ui.html
